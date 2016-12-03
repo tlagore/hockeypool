@@ -50,6 +50,8 @@
             <h1>HockeyPool</h1>
             <p class="lead">Is it cold in here?</p>
             <a href="login.php" class="btn btn-primary btn-md">Get started</a>
+            
+            <a href="pool.php" class="btn btn-primary btn-md">Test button</a>
           </div>
         </div>
       </div>
