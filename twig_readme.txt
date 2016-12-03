@@ -3,19 +3,24 @@ php instead of just slapping some html here, some php there, some of this some o
 exclusively separated (which is how it should be). Note that it enables this behavior, but does not force it. Make sure
 we're not literring our php with html code.
 
+Go to your php.ini file and add these lines:
+
+//windows
+extension=php_twig.dll
+
+//unix (eg mac)
+extension=twig.so
+
 Example login.php interaction:
 For example if we are directed to localhost/hockeypool/login.php, our files would look like this:
 
 login.php:
-
-
 <?php 
 //Must be included in every php header that uses the twig constructs
 include_once 'vendor/autoload.php';
 require_once 'vendor/twig/twig/lib/Twig/Autoloader.php';
 $loader = new Twig_Loader_filesystem('./templates');
-$twig = new Twig_Environment($loader, array(
-		'cache' => './tmp/cache',));
+$twig = new Twig_Environment($loader);
 
 if($SERVER['REQUEST_METHOD'] === 'POST')
 {

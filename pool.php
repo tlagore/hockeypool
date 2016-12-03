@@ -2,10 +2,9 @@
 include_once 'vendor/autoload.php';
 require_once 'vendor/twig/twig/lib/Twig/Autoloader.php';
 $loader = new Twig_Loader_Filesystem('./templates');
-$twig = new Twig_Environment($loader, array(
-		'cache' => './tmp/cache',));
+$twig = new Twig_Environment($loader);//, array(
+		//'cache' => './tmp/cache',));
 
-//$template -> $twig->loadTemplate('pool.twig');
 
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
@@ -17,14 +16,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 	header('Location: /hockeypool/login.php');
 	die();
 }
-
-
 ?>
 
 
 <?php
-$user = "user_id";
-$value = "Tyrone";
+$user = "logged_in_user";
+$value = "1";
 setcookie($user, $value, time() + 1200, "/");
 
 if($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -52,16 +49,18 @@ if($conn->connect_error)
 $result = $conn->query($sql);
 if(mysqli_num_rows($result) > 0)
 {
-// 	while($row = mysqli_fetch_row($result))
-// 	{
-// 		echo $row[0] . " " . $row[1] . " " . $row[2] . " " . $row[3] . " " .
-// 				$row[4] . " " . $row[5] . " " . $row[6] . " " . $row[7] . " " .
-// 				$row[8] . " " . $row[9] . " " . $row[10] . " " . $row[11] . "<br/>";
-// 	}
+	$fp = 0;
+	while($row = mysqli_fetch_row($result))
+	{
+		$team_name = $row[0];
+		$fp = $fp + $row[12];
+	}
 }
 
 $params = array(
-	'player_stats' => $result
+	'player_stats' => $result,
+	'team_name' => $team_name,
+	'total_points' => $fp,
 );
 
 echo $twig->render('pool.twig', $params);
