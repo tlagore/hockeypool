@@ -1,7 +1,7 @@
 <?php 
 
 $getTeam = "SELECT
-			ft.team_name,
+			p.name, ft.team_name,
 			nps.name, nps.team, nps.position, nps.games_played,
 			nps.goals, nps.assists, nps.plus_minus,
 			nps.penalty_mins, nps.shots_on_goal, nps.pp_goals,
@@ -15,12 +15,13 @@ $getTeam = "SELECT
 			nps.gw_goals * pr.gw_goals_val),2) AS FantasyPoints
 		FROM
 			nhl_player_statistics AS nps, composed_of AS co,
-			pool_rules AS pr, fantasy_team AS ft
+			pool_rules AS pr, fantasy_team AS ft, pool AS p
 			WHERE nps.name = co.player_name
 			AND nps.team = co.player_team
 			AND pr.pool_id = co.pool_id
 			AND co.pool_id = ft.pool_id
 			AND co.owner_id = ft.owner_id
+      		AND p.pid = co.pool_id
 			AND co.pool_id = $pool_id
 			AND co.owner_id = $owner_id
 			AND nps.year = 2016;";

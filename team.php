@@ -1,21 +1,7 @@
 <?php 
 include_once 'vendor/autoload.php';
-require_once 'vendor/twig/twig/lib/Twig/Autoloader.php';
 $loader = new Twig_Loader_Filesystem('./templates');
-$twig = new Twig_Environment($loader);//, array(
-		//'cache' => './tmp/cache',));
-
-
-if($_SERVER['REQUEST_METHOD'] === 'POST')
-{
-	$owner_id = $_POST['inputUser'];
-	$pool_id = $_POST['inputPool'];
-}else
-{
-	//redirect user, they shouldn't be accessing this page directly!
-	header('Location: /hockeypool/login.php');
-	die();
-}
+$twig = new Twig_Environment($loader);
 ?>
 
 
@@ -52,7 +38,8 @@ if(mysqli_num_rows($result) > 0)
 	$fp = 0;
 	while($row = mysqli_fetch_row($result))
 	{
-		$team_name = $row[0];
+		$pool_name = $row[0];
+		$team_name = $row[1];
 		$fp = $fp + $row[12];
 	}
 }
@@ -60,10 +47,12 @@ if(mysqli_num_rows($result) > 0)
 $params = array(
 	'player_stats' => $result,
 	'team_name' => $team_name,
+	'pool_name' => $pool_name,
 	'total_points' => $fp,
+	'my_team' => $owner_id == $_COOKIE[$user],
 );
 
-echo $twig->render('pool.twig', $params);
+echo $twig->render('team.twig', $params);
 
 ?>
 
