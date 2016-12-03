@@ -1,11 +1,15 @@
+<html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <TITLE>My pools</TITLE>
 
 
 
-<div class = "container">
+
+<div class = "midTable">
+
 	<table>
 		<tr>
 			<th>Team Name</th>
@@ -21,18 +25,19 @@
 			die("Connection failed: " . mysqli_connect_error());
 		}
 		else {
-			//$sql = "SELECT * FROM pool p INNER JOIN fantasy_team t ON p.pid = t.pool_id AND t.owner_id = 1";
-			$sql = "SELECT p.name, t.team_name FROM pool p, fantasy_team t WHERE p.pid = t.pool_id AND t.owner_id = 1";
+			$sql = "SELECT  t.team_name, p.name FROM pool as p, fantasy_team as t WHERE p.pid = t.pool_id AND t.owner_id = 1";
 			$result = mysqli_query($conn, $sql);
 			if(mysqli_num_rows($result) > 0)
 				{
 					while($row = mysqli_fetch_row($result))
 					{
-						echo "<tr>". "<td>" . $row[1] . "</td>" . "<td>" . $row[0] . "</td>" . "</tr>";
+						echo "<tr>". "<td>" . $row[0] . "</td>" . "<td>" . $row[1] . "</td>" . "</tr>";
 					}
 				}
 		}
 		
 		?>
 	</table>
+
 </div>
+</html>
