@@ -52,7 +52,7 @@
             <p class="lead">Is it cold in here?</p>
             <a href="login.php" class="btn btn-primary btn-md">Get started</a>
             <div class="well bs-component">
-             	<form class="form-horizontal" action="pool.php" method="post">
+             	<form class="form-horizontal" action="team.php" method="post">
                 	<fieldset>
                   		<legend>Legend</legend>
                   		<div class="form-group">

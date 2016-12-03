@@ -1,4 +1,6 @@
-Twig is a templating system and I think it's what I've been looking for. It allows us to encapsulate a more "mvc feel" with
+<?php 
+
+/*Twig is a templating system and I think it's what I've been looking for. It allows us to encapsulate a more "mvc feel" with
 php instead of just slapping some html here, some php there, some of this some of that, it keeps all our php and our html
 exclusively separated (which is how it should be). Note that it enables this behavior, but does not force it. Make sure
 we're not literring our php with html code.
@@ -15,7 +17,7 @@ Example login.php interaction:
 For example if we are directed to localhost/hockeypool/login.php, our files would look like this:
 
 login.php:
-<?php 
+*/
 //Must be included in every php header that uses the twig constructs
 include_once 'vendor/autoload.php';
 require_once 'vendor/twig/twig/lib/Twig/Autoloader.php';
@@ -25,7 +27,7 @@ $twig = new Twig_Environment($loader);
 if($SERVER['REQUEST_METHOD'] === 'POST')
 {
 	//do work of getting POST stuff
-	/eg:
+	//eg:
 	
 	$errors = False;
 	
@@ -35,22 +37,22 @@ if($SERVER['REQUEST_METHOD'] === 'POST')
 		$errors = True;
 	}
 	
-	$user = $_POST[...];
-	$password = $_POST[...];
-	$sql = ...;
-	$result = ...;
+	$user = $_POST[''];
+	$password = $_POST[''];
+	$sql = '';
+	$result = '';
 	
 	if($resullt){
 		//set user id cookie - we'll check this cookie in any method that requires user authentication, 1200 seconds (20 minutes) expire time
 		// '/' means its available on the whole site (bad form but whatever).
-		setcookie('user_id', /* get result row[0]*/, 1200, '/');
-		$user_name = //get result row[1] or whatever
+		setcookie('user_id', '' , 1200, '/');
+		$user_name = '';//get result row[1] or whatever
 	}
 
 	$params = array(
 		'user_name' => $user_name,
 		'emailError' => $emailError,
-	)
+	);
 	
 	//since this is a redirect page we must check again to see if the login was successful
 	if($result)
