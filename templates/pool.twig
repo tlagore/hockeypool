@@ -2,8 +2,14 @@
 
 {% block primary_content %}
 <div class="bs-component">
-	<h1>{{ team_name }}</h1>
+	{% if team_name %}
+		<h1>{{ team_name }}</h1>
+	{% else %}
+		<h1>Team not found...</h1>
+		<h3><a class="btn-primary btn-lg" href="/create_team">Create Team?</a></h3>
+	{% endif %}
 </div>
+{% if team_name %}
 <div class="bs-component">
     <div class="table-responsive">
         <table class="table table-striped table-hover">
@@ -60,4 +66,5 @@
         </table>
     </div>
 </div>
+{% endif %}
 {% endblock %}
