@@ -1,0 +1,30 @@
+{% extends 'base.twig' %}
+
+
+{% block primary_content %}
+<TITLE>My pools</TITLE>
+<html>
+<div class = "midTable">
+	<div class="bs-component">
+        <div class="table-responsive">
+    		<table class="table table-striped table-hover"
+    			<thead class="thead-inverse">
+            		<tr class = "success">
+            			<th>Team Name</th>
+            			<th>Pool Name</th>
+            		</tr>
+            	</thead>
+            	{% for pools in pools_enter%}
+            		<tr>
+            		<td>{{pools.team_name}}</td>
+            		<td>{{pools.name}}</td>
+            		</tr>
+            	{% endfor %}
+                 	
+     		</table>
+		</div>
+	</div>
+</div>
+</html>
+{% endblock %}
+

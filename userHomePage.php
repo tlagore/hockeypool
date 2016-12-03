@@ -1,21 +1,13 @@
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-<TITLE>My pools</TITLE>
+<?php
+include_once 'vendor/autoload.php';
+$loader = new Twig_Loader_Filesystem('./templates');
+$twig = new Twig_Environment($loader);
 
-
-
-
-<div class = "midTable">
-
-	<table>
-		<tr>
-			<th>Team Name</th>
-			<th>Pool Name</th>
-		</tr>
-		<?php
+		/*For Testing */
+		$name = "logged_in_user";
+		$value = "1"; //ownerid
+		setcookie($user, $value, time() + 1200, "/");
+		
 		require 'lib.php';
 		
 		$user = $_POST["name"];
@@ -25,19 +17,19 @@
 			die("Connection failed: " . mysqli_connect_error());
 		}
 		else {
-			$sql = "SELECT  t.team_name, p.name FROM pool as p, fantasy_team as t WHERE p.pid = t.pool_id AND t.owner_id = 1";
+			$sql = "SELECT  t.team_name, p.name FROM pool as p, fantasy_team as t WHERE p.pid = t.pool_id AND t.owner_id = $value";
 			$result = mysqli_query($conn, $sql);
 			if(mysqli_num_rows($result) > 0)
 				{
-					while($row = mysqli_fetch_row($result))
-					{
-						echo "<tr>". "<td>" . $row[0] . "</td>" . "<td>" . $row[1] . "</td>" . "</tr>";
-					}
+					$params = array(
+							'pools_enter' => $result
+					);
+					echo $twig->render('userHomePage.twig', $params);	
 				}
+			else
+			{
+			 echo "Thanks Tyrone";
+			}
 		}
 		
-		?>
-	</table>
-
-</div>
-</html>
+?>
