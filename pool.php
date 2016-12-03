@@ -16,13 +16,8 @@ setcookie($user, $value, time() + 1200, "/");
 
 	 </div>	
 	<?php 
-		$server = "localhost";
-		$db = "hockeypool";
-		$username = "root";
-		$pass = "Yaygroup_19";
-		//$command = "SELECT * FROM "
-		
-		$conn = new mysqli($server, $username, $pass, $db);
+		require 'lib.php';
+		$conn = getConn("localhost", "root", "Yaygroup_19", "hockeypool");
 		if($conn->connect_error)
 		{
 			die("cannot connect to server. " . $conn->connect_error);

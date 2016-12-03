@@ -12,14 +12,11 @@
 			<th>Pool Name</th>
 		</tr>
 		<?php
-		$servername = "localhost";
-		$username = "root";
-		$password = "Yaygroup_19";
-		$dbname = "hockeypool";
+		require 'lib.php';
 		
 		$user = $_POST["name"];
 		// Create connection
-		$conn = mysqli_connect($servername, $username, $password, $dbname);
+		$conn = getConn("localhost", "root", "Yaygroup_19", "hockeypool");
 		if (!$conn) {
 			die("Connection failed: " . mysqli_connect_error());
 		}
