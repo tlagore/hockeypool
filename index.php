@@ -50,8 +50,31 @@
             <h1>HockeyPool</h1>
             <p class="lead">Is it cold in here?</p>
             <a href="login.php" class="btn btn-primary btn-md">Get started</a>
-            
-            <a href="pool.php" class="btn btn-primary btn-md">Test button</a>
+            <div class="well bs-component">
+             	<form class="form-horizontal" action="pool.php" method="post">
+                	<fieldset>
+                  		<legend>Legend</legend>
+                  		<div class="form-group">
+                    		<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                   			<div class="col-lg-10">
+                     			<input type="text" class="form-control" name="inputUser" placeholder="User">
+                   			</div>
+                		</div>
+                		<div class="form-group">
+                    		<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                   			<div class="col-lg-10">
+                     			<input type="text" class="form-control" name="inputPool" placeholder="Pool">
+                   			</div>
+                		</div>
+                  		<div class="form-group">
+                    		<div class="col-lg-10 col-lg-offset-2">
+                      			<button type="reset" class="btn btn-primary btn-md">Cancel</button>
+                      			<button type="submit" class="btn btn-primary btn-md">Submit</button>
+                    		</div>
+                  		</div>	
+            		</fieldset>
+            	</form>
+           	</div>
           </div>
         </div>
       </div>
