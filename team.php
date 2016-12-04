@@ -40,7 +40,7 @@ if(mysqli_num_rows($result) > 0)
 	{
 		$pool_name = $row[0];
 		$team_name = $row[1];
-		$fp = $fp + $row[12];
+		$fp = $fp + $row[13];
 	}
 }
 
