@@ -45,13 +45,13 @@ $twig = new Twig_Environment($loader);
    
    if( $count == 1 ) {
     setcookie ('cur_login', $row[0], time() + 1200, "/");
-    header('userHomePage.php');
+    header('Location: /hockeypool/userHomePage.php');
    } else {
-    $errMSG = "Incorrect Credentials, Try again...";
+    $errorMessage = " Incorrect credentials, please try again...";
     $params = array(
-    	'errMSG' => $errMsg
+    	'error' => $errorMessage
     );
-    echo $twig->render('login.twig');
+    echo $twig->render('login.twig', $params);
    }
    
   }
