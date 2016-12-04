@@ -48,7 +48,7 @@
                 	<td align="center">{{ player.shots_on_goal }}</td>
                 	<td align="center">{{ player.pp_goals }}</td>
                 	<td align="center">{{ player.gw_goals }}</td>
-                	<td><a href="javascript:myFunction('{{ player.name }}','{{ player.team }}')"><span id ="{{ player.name }}{{ player.team }}span" style="color:#5cb85c;" class="glyphicon glyphicon-plus"></span></a>
+                	<td><a href="javascript:addPlayer('{{ player.name }}','{{ player.team }}')"><span id ="{{ player.name }}{{ player.team }}span" style="color:#5cb85c;" class="glyphicon glyphicon-plus"></span></a>
                 	{# <td><input class="checkboxSelector" type="button" onclick='checkboxChanged(this);' value="add"></td> #}
             	</tr>
             {% endfor %}
@@ -85,19 +85,23 @@
 {% block extra_scripts %}
 <script type="text/javascript">
 
-function myFunction(a, b){
+function addPlayer(a, b){
 	//alert(a + ' ' + b);
-	var v = document.getElementById(a+b);
-	var otherT = document.getElementById('myTeamTableBody');
-	otherT.innerHTML += '<tr>' + v.innerHTML + '</tr>';
+	var row = document.getElementById(a+b);
+	$row.fadeOut(1000, function(){
+		$('#myTeamTableBody').append($row);
+		$row.fadeIn(1000);
+	});
+	//var otherT = document.getElementById('myTeamTableBody');
+	//otherT.innerHTML += '<tr>' + row.innerHTML + '</tr>';
 
-	v.remove();
+	//row.remove();
 	
 	var plus = document.getElementById(a+b+'span');
 	plus.className = 'glyphicon glyphicon-minus';
 }
 $(document).ready(function() {
-	    $('#viewNhlPlayersTable').DataTable();
+	$('#viewNhlPlayersTable').DataTable();
 	} );
 	$('#viewNhlPlayersTable').on( 'page.dt', function () {
 		//alert('page change');

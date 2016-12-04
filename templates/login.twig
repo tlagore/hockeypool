@@ -27,15 +27,22 @@
                 
                 {%  if error  %}
         			<div class="form-group">
-        				<div class="alert alert-danger">
+        				<div class="alert alert-danger  col-lg-offset-1 col-lg-10">
         					<span class="glyphicon glyphicon-info-sign">{{ error }}</span>
                     	</div>
                  	</div>
     		    {%  endif %}
                 {%  if register_redirect  %}
         			<div class="form-group">
-                     	<div class="alert alert-success">
+                     	<div class="alert alert-success  col-lg-offset-1 col-lg-10">
             				<p><span class="glyphicon glyphicon-info-sign"></span>  Registration successful, please log in.</p>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if login_required %}
+                	<div class="form-group">
+                     	<div class="alert alert-success col-lg-offset-1 col-lg-10">
+            				<p><span class="glyphicon glyphicon-info-sign"></span>  You must be logged in to view that page.</p>
                         </div>
                     </div>
                 {%  endif %}
