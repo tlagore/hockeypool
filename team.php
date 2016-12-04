@@ -5,15 +5,15 @@ $twig = new Twig_Environment($loader);
 ?>
 
 <?php
-$user = "logged_in_user";
-$value = "1";
-setcookie($user, $value, time() + 1200, "/");
+$user = $_COOKIE['cur_user'];
+if($user){
+	setcookie('cur_user', $user, time() + 1200, "/");
+}
 
-if($_SERVER['REQUEST_METHOD'] === 'POST')
-{
-	$owner_id = $_POST['inputUser'];
-	$pool_id = $_POST['inputPool'];
-}else
+$owner_id = $_GET['oid'];
+$pool_id = $_GET['pid'];
+
+if(!owner_id || !$pool_id)
 {
 	header('Location: /hockeypool/login.php');
 	die();
