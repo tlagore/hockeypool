@@ -3,22 +3,22 @@ include_once 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('./templates');
 $twig = new Twig_Environment($loader);
 
- //ob_start();
- //session_start();
- require_once 'dbconnect.php';
+//ob_start();
+//session_start();
+
+require_once 'dbconnect.php';
+$user = $_COOKIE['cur_login'];
+
+if($user)
+{
+	header("Location: /hockeypool");	
+}
  
- // it will never let you open index(login) page if session is set
- /*if ( isset($_SESSION['user'])!="" ) {
-  header("Location: home.php");
-  exit;
- }
- */
  $error = false;
  //echo 'hello';
  //echo $_SERVER['REQUEST_METHOD'];
- //if($_SERVER['REQUEST_METHOD'] === 'POST')
- if( isset($_POST['btn-login']) ) 
-{
+ if($_SERVER['REQUEST_METHOD'] === 'POST'){
+ 	
   // prevent sql injections/ clear user invalid inputs
 
   $email = $_POST['email'];

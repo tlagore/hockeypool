@@ -36,8 +36,13 @@
           	</ul>
 
           	<ul class="nav navbar-nav navbar-right">
+          	{% if cur_login %}
+          		<li><a href="profile.php">{{ cur_login }}</a></li>
+          		<li><a href="logout.php">Logout</a></li>
+          	{% else %}
             	<li><a href="login.php">Login</a></li>
             	<li><a href="Register.php">Register</a></li>
+            {% endif %}
         	</ul>
     	</div>
 	</div>

@@ -75,7 +75,7 @@ $params = array(
 		'name_error' => $nameError,
 		'email_error' => $emailError,
 		'pass_error' => $passError,
-		'error' => $nameError . $emailError . $passError
+		'error' => $nameError . ' ' . $emailError . ' ' . $passError
 );
 
 echo $twig->render('Register.twig', $params);
