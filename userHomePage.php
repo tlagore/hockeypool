@@ -17,12 +17,13 @@ $twig = new Twig_Environment($loader);
 			die("Connection failed: " . mysqli_connect_error());
 		}
 		else {
-			$sql = "SELECT  t.team_name, p.name FROM pool as p, fantasy_team as t WHERE p.pid = t.pool_id AND t.owner_id = $value";
+			$sql = "SELECT t.team_name, p.name FROM pool as p, fantasy_team as t WHERE p.pid = t.pool_id AND t.owner_id = $value";
 			$result = mysqli_query($conn, $sql);
+			
 			if(mysqli_num_rows($result) > 0)
 				{
 					$params = array(
-							'pools_enter' => $result
+						'pools_enter' => $result
 					);
 					echo $twig->render('userHomePage.twig', $params);	
 				}
