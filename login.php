@@ -57,7 +57,11 @@ $twig = new Twig_Environment($loader);
   }
  }else
  {
- 	echo $twig->render('login.twig');
+ 	$register_redirect = $_GET['rr'];
+ 	$params = array(
+ 			'register_redirect' => $register_redirect
+ 	);
+ 	echo $twig->render('login.twig', $params);
  }
 ?>
 	
