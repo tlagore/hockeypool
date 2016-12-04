@@ -5,7 +5,7 @@ $twig = new Twig_Environment($loader);
 
 
 		/*For Testing */
-		$name = "logged_in_user";
+		$name = "cur_user";
 		$value = "1"; //ownerid
 		setcookie($user, $value, time() + 1200, "/");
 		
