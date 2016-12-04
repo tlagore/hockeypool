@@ -5,16 +5,7 @@
 {% block primary_content %}
 <TITLE>My pools</TITLE>
 <html>
-	<script>
-        function loadTeam(a, b)
-        {
-        	//alert(a + ' ' + b);
-        	
-        window.location.assign("./team.php?pid=1&oid=1");
-                
-        	
-        }
-   </script> 
+	
 <div class = "midTable">
 	<div class="bs-component">
         <div class="table-responsive">
@@ -23,16 +14,12 @@
             		<tr class = "success">
             			<th>Team Name</th>
             			<th>Pool Name</th>
-            			<th> Pool Id </th>
-            			<th> Owner Id </th>
             		</tr>
             	</thead>
             	{% for pools in pools_enter%}
             		<tr>
-            		<td onClick = "loadTeam('{{ pools.pool_id }}', '{{pools.owner_id  }}')">{{pools.team_name}}</td>
-            		<td>{{pools.name}}</td>
-            		<td>{{pools.pool_id}}</td>
-            		<td>{{pools.owner_id }}</td>
+            		<td onClick = "loadTeam('{{ pools.pool_id }}', '{{pools.owner_id }}')">{{pools.team_name}}</td>
+            		<td onClick = "loadPool('{{ pools.pool_id }}', '{{pools.owner_id }}')">{{pools.name}}</td>
             		</tr>
             	{% endfor %}
              	
@@ -43,7 +30,22 @@
 
 
 </html>
-
+<script>
+        function loadTeam(pid, oid)
+        {  
+       	 window.location.assign("./team.php?pid=" + pid + "&oid=" + oid);
+       	}
+       	
+   </script> 
+   <script>
+   
+  	function loadPool(pid, oid)
+  	{
+  		window.location.assign("./displayPool.php?pid=" + pid + "&oid=" + oid);
+   	}
+  	
+   
+   </script>
 
 {% endblock %}
 

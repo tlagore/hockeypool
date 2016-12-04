@@ -3,15 +3,18 @@ include_once 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('./templates');
 $twig = new Twig_Environment($loader);
 
-
+$user = $_COOKIE['cur_login'];
 		/*For Testing */
-		$name = "cur_user";
-		$value = "1"; //ownerid
-		setcookie($user, $value, time() + 1200, "/");
-		
+if($user){
+	setcookie('cur_user', $user, time() + 1200, "/");
+}
+	
+else {
+	header('Location: /hockeypool/login.php');
+	die();
+}
 		require 'lib.php';
 		
-		$user = $_POST["name"];
 		// Create connection
 		$conn = getConn("localhost", "root", "Yaygroup_19", "hockeypool");
 		if (!$conn) {
@@ -19,7 +22,8 @@ $twig = new Twig_Environment($loader);
 		}
 		else {
 
-			$sql = "SELECT  t.team_name, p.name, t.pool_id, t.owner_id FROM pool as p, fantasy_team as t WHERE p.pid = t.pool_id AND t.owner_id = '$value'";
+			$sql = "SELECT  t.team_name, p.name, t.pool_id, t.owner_id 
+			FROM pool as p, fantasy_team as t WHERE p.pid = t.pool_id AND t.owner_id = '$user'";
 			$result = mysqli_query($conn, $sql);
 
 					$params = array(
