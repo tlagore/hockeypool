@@ -5,7 +5,8 @@ $twig = new Twig_Environment($loader);
 ?>
 
 <?php
-$user = $_COOKIE['cur_user'];
+$user = $_COOKIE['cur_login'];
+
 if($user){
 	setcookie('cur_user', $user, time() + 1200, "/");
 }
@@ -47,7 +48,7 @@ $params = array(
 	'team_name' => $team_name,
 	'pool_name' => $pool_name,
 	'total_points' => $fp,
-	'my_team' => $owner_id == $_COOKIE[$user],
+	'my_team' => $owner_id == $user,
 );
 
 echo $twig->render('team.twig', $params);
