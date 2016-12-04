@@ -33,6 +33,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
    		$emailError = "Please enter valid email address.";
   	} else {
    		// check email exist or not
+   		$email = strtolower($email);
    		$query = "SELECT email FROM owner WHERE email='$email'";
    		$result = mysql_query($query);
    		$count = mysql_num_rows($result);
@@ -58,12 +59,11 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     
 	   	if ($res) {
 	    	$errTyp = "success";
-	    	$errMSG = "Successfully registered, you may login now";
 	    	unset($name);
 	    	unset($email);
 	    	unset($pass);
 	    		    	
-	    	header('Location: /hockeypool/login.php?');
+	    	header('Location: /hockeypool/login.php?rr=1');
 	   	} else {
 	    	$errTyp = "danger";
 	   		$errMSG = "Something went wrong, try again later..." . "$query"; 
@@ -71,11 +71,18 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
   	}
 }		
 
+if($nameError || $emailError || $passError)
+{
+	$errorMsg = $nameError . ' ' . $emailError . ' ' . $passError;
+}
+
 $params = array(
 		'name_error' => $nameError,
 		'email_error' => $emailError,
 		'pass_error' => $passError,
-		'error' => $nameError . ' ' . $emailError . ' ' . $passError
+		'error' => $errorMsg,
+		'email' => $email,
+		'name' => $name
 );
 
 echo $twig->render('Register.twig', $params);
