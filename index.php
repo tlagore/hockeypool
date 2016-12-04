@@ -9,7 +9,7 @@ $conn = getConn('localhost', 'root', 'Yaygroup_19', 'hockeypool');
 $user = getUser($conn, $_COOKIE['cur_login']);
 
 $params = array(
-		'cur_login' => $user
+	'cur_login' => $user
 );
 
 echo $twig->render("index.twig", $params);
