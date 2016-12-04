@@ -17,14 +17,16 @@
              <hr />
             </div>
             
-		{% if error %}
-			<div class="form-group">
+            
+            {%  if error  %}
+    <div class="form-group">
+    
+   
              <div class="alert alert-danger">
-    			<span class="glyphicon glyphicon-info-sign">{{ error }}</span>
+    	<span class="glyphicon glyphicon-info-sign">{{ error }}</span>
                 </div>
              </div>
-         {% endif %}
-
+		{%  endif %}
             
             <div class="form-group">
              <div class="input-group">

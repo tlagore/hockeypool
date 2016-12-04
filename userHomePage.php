@@ -29,7 +29,10 @@ $twig = new Twig_Environment($loader);
 				}
 			else
 			{
-			 echo "Thanks Tyrone";
+				$params = array(
+						'pools_enter' => $result
+				);
+				echo $twig->render('userHomePage.twig', $params);
 			}
 		}
 		
