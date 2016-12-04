@@ -4,18 +4,20 @@ $loader = new Twig_Loader_Filesystem('./templates');
 $twig = new Twig_Environment($loader);
 
 $user = $_COOKIE['cur_login'];
-
 //if user is logged in, refresh cookie
 if($user){
-	setcookie('cur_user', $user,  time() + 1200, "/");
+	setcookie('cur_user', $user,  time() + 3600, "/");
 }
 
 $owner_id = $_GET['oid'];
 $pool_id = $_GET['pid'];
 //if we didn't get owner id, pool id, or if person logged in is not the owner of the team, redirect to home page
-if(!$owner_id || !$pool_id || $user != $owner_id)
+if(!$owner_id || !$pool_id)
 {
 	header("Location: /hockeypool");
+}else if ($user != $owner_id)
+{
+	header("Location: /hockeypool/login.php?rd=1");
 }
 
 require 'lib.php';
