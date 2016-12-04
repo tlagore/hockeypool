@@ -2,9 +2,19 @@
 
 {% block primary_content %}
 
-<div class="bs-component">
-<h1 id="numRemaining">2</h1>
+
+
+<div class="row">
+    <div class="col-lg-4">
+    	<input type="text" class="form-control" name="team_name" placeholder="Team Name">
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8" style="text-align:right;">
+    	<p>Remaining allowed players: <span id="numRemaining">{{ num_players }}</span></p>
+    </div>
 </div>
+<br/>
+
+
 <div class="bs-component">
     <div class="onHover">
         <table id="viewNhlPlayersTable" class="table table-striped table-hover">
@@ -26,7 +36,7 @@
         	</thead>
         	<tbody>
             {% for player in nhl_players %}
-                <tr>
+                <tr id="{{ player.name }}{{ player.team }}">
                 	<td align="center">{{ player.name }}</td>
                 	<td align="center">{{ player.team }}</td>
                 	<td align="center">{{ player.position }}</td>
@@ -38,7 +48,8 @@
                 	<td align="center">{{ player.shots_on_goal }}</td>
                 	<td align="center">{{ player.pp_goals }}</td>
                 	<td align="center">{{ player.gw_goals }}</td>
-                	<td><input class="checkboxSelector" type="checkbox" onclick='checkboxChanged(this);'></td>
+                	<td><a href="javascript:myFunction('{{ player.name }}','{{ player.team }}')"><span id ="{{ player.name }}{{ player.team }}span" style="color:#5cb85c;" class="glyphicon glyphicon-plus"></span></a>
+                	{# <td><input class="checkboxSelector" type="button" onclick='checkboxChanged(this);' value="add"></td> #}
             	</tr>
             {% endfor %}
             </tbody>
@@ -46,33 +57,66 @@
     </div>
 </div>
 
+<table>
+	<thead class="thead-inverse">
+    	<tr class="success">
+        	<th class="onHover" align="center">Name</th>
+        	<th align="center">Team</th>
+        	<th align="center">Position</th>
+        	<th align="center">Games Played</th>
+        	<th align="center">Goals</th>
+        	<th align="center">Assists</th>
+        	<th align="center">+/-</th>
+        	<th align="center">Penalty Mins</th>
+        	<th align="center">Shots on Goal</th>
+        	<th align="center">PP goals</th>
+        	<th align="center">GW goals</th>
+        	<th>Pick</th>
+    	</tr>
+    </thead>
+    <tbody id="myTeamTableBody">
+    	
+    </tbody>
+</table>
+
 {% endblock %}
 
 
 {% block extra_scripts %}
 <script type="text/javascript">
-$(document).ready(function() 
-    { 
-		$(document).ready(function() {
-		    $('#viewNhlPlayersTable').DataTable();
-		} );
-    } 
-); 
+
+function myFunction(a, b){
+	//alert(a + ' ' + b);
+	var v = document.getElementById(a+b);
+	var otherT = document.getElementById('myTeamTableBody');
+	otherT.innerHTML += '<tr>' + v.innerHTML + '</tr>';
+
+	v.remove();
+	
+	var plus = document.getElementById(a+b+'span');
+	plus.className = 'glyphicon glyphicon-minus';
+}
+$(document).ready(function() {
+	    $('#viewNhlPlayersTable').DataTable();
+	} );
+	$('#viewNhlPlayersTable').on( 'page.dt', function () {
+		//alert('page change');
+	    checkboxChanged(null);
+		});
 
 function checkboxChanged(cb){
 
 	var num = document.getElementById("numRemaining").innerHTML;
 	
-	if(cb.checked)
+	if(cb != null && cb.checked)
 		num = parseInt(num) - 1;
-	else
+	else if(cb != null)
 		num = parseInt(num) + 1;
 
 	
 	if(num === 0)
 	{
 		var checkboxes = document.getElementsByClassName('checkboxSelector');
-		alert(checkboxes.length);
 		for(var i = 0; i< checkboxes.length; i++)
 		{
 			if(!checkboxes[i].checked)
@@ -81,14 +125,14 @@ function checkboxChanged(cb){
 	}else if(num === 1)
 	{
 		var checkboxes = document.getElementsByClassName('checkboxSelector');
-		alert(checkboxes.length);
 		for(var i = 0; i< checkboxes.length; i++)
 		{
 			checkboxes[i].disabled = false;
 		}
 	}
-	
-	document.getElementById("numRemaining").innerHTML = num;
+	if(cb != null){
+		document.getElementById("numRemaining").innerHTML = num;
+	}
 	/*$('#mytable tr').filter(':has(:checkbox:checked)').each(function() {
 		 $('#out').append(this.id);
 		});*/
