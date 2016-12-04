@@ -26,5 +26,6 @@ $getTeam = "SELECT
 			AND co.owner_id = $owner_id
 			AND nps.year = 2016;";
 
-
+$getNhlPlayerStats = "SELECT name, team, position, games_played, goals, assists, plus_minus, penalty_mins, shots_on_goal, pp_goals, gw_goals
+  		FROM nhl_player_statistics WHERE year = 2016 AND games_played > 0;"
 ?>

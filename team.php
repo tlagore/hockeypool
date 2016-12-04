@@ -8,7 +8,7 @@ $twig = new Twig_Environment($loader);
 $user = $_COOKIE['cur_login'];
 
 if($user){
-	setcookie('cur_user', $user, time() + 1200, "/");
+	setcookie('cur_user', $user,  time() + 1200, "/");
 }
 
 $owner_id = $_GET['oid'];
