@@ -4,5 +4,8 @@ div.midTable {
  position: absolute;
  top: 45%;
  left: 45%;
- 
-  }
+}
+
+.onHover table thead tr th:hover {
+	background-color:grey;
+}
