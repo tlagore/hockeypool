@@ -10,16 +10,27 @@ require 'sql_lib.php';
 if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
 	$pid = $_POST['pid'];
 	$oid = $_POST['oid'];
+	$team_name = $_POST['team_name'];
 	
 	$conn = getConn('localhost', 'root', 'Yaygroup_19', 'hockeypool');
 	$rules = $conn->query ( "SELECT num_players FROM pool_rules WHERE pool_id = $pid;" );
 	$row = mysqli_fetch_row($rules);
-	$num_players = $row [0];
+	$num_players = intval($row[0]);
 	
-	for($x = 1; x <= $num_players; $x++)
+	$newTeamSql = "INSERT INTO fantasy_team (pool_id, owner_id, team_name) VALUES ($pid, $oid, '$team_name')";
+	$conn->query($newTeamSql);
+	
+	$player = explode('#', $_POST['teamIn1']);
+	$insertPlayerSql = "INSERT INTO composed_of (pool_id, owner_id, player_name, player_team) VALUES ($pid, $oid, '$player[0]', '$player[1]');";
+	$conn->query($insertPlayerSql);
+	for($x = 1; $x <= $num_players; $x++)
 	{
-		echo $_POST['teamIn'.$x];
+		$player = explode('#', $_POST['teamIn'.(string)$x]);
+		$insertPlayerSql = "INSERT INTO composed_of (pool_id, owner_id, player_name, player_team) VALUES ($pid, $oid, '$player[0]', '$player[1]');";
+		$conn->query($insertPlayerSql);
 	}	
+	
+	header('Location: /hockeypool/team.php?oid='.$oid.'&pid='.$pid);
 } else {
 	$user = $_COOKIE ['cur_login'];
 	// if user is logged in, refresh cookie
@@ -47,8 +58,10 @@ if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
 	
 	$result = $conn->query ( $sqlTeams );
 	// if team already exists, redirect to view team - only allowed one team per pool.
-	if (mysqli_num_rows ( $result ) > 0) {
-		header ( "Location: /hockeypool/team.php?oid=" . $owner_id . "&pid=" . $pool_id );
+	if($result){
+		if (mysqli_num_rows ( $result ) > 0) {
+			header ( "Location: /hockeypool/team.php?oid=" . $owner_id . "&pid=" . $pool_id );
+		}
 	}
 	
 	$sqlParticipating = "SELECT * FROM participates_in WHERE pool_id = $pool_id AND owner_id = $owner_id;";
