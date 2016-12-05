@@ -4,26 +4,36 @@
 {% block primary_content %}
 <TITLE>My pools</TITLE>
 <html>
-	
-<div class = "midTable">
+
+<div>
 	<div class="bs-component">
-        <div class="table-responsive">
-    		<table class="table table-striped table-hover">
-    			<thead class="thead-inverse">
-            		<tr class = "success">
-            			<th>Team Name</th>
-            			<th>Pool Name</th>
-            		</tr>
-            	</thead>
-            	{% for pools in pools_enter%}
-            		<tr>
-            		<td onClick = "loadTeam('{{ pools.pool_id }}', '{{pools.owner_id }}')">{{pools.team_name}}</td>
-            		<td onClick = "loadPool('{{ pools.pool_id }}', '{{pools.owner_id }}')">{{pools.name}}</td>
-            		</tr>
-            	{% endfor %}
-             	
-     		</table>
-     		<a href="create_pool.php" class="btn btn-primary btn-md">Create Pool</a>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<thead class="thead-inverse" align="right">
+					<tr class="success">
+						<th style="width:25%; text-align:center;">Owner</th>
+						<th style="width:25%; text-align:center;">Team Name</th>
+						<th style="width:25%; text-align:center;">Pool Name</th>
+					</tr>
+				</thead>
+				{% for pools in pools_enter%}
+				<tr>
+					<td>{{pools.name}}</td>
+					<td
+						style="{% if pools.team_name is null %}color:lightblue;text-decoration:underline;{% endif %}cursor:pointer;"
+						onClick="loadTeam('{{ pools.pool_id }}', '{{pools.owner_id }}', '{{ pools.team_name }}')">
+						{%  if pools.team_name is not null %} {{ pools.team_name }} {% else %}
+						Create a team {% endif %}
+					</td>
+					<td
+						onClick="loadPool('{{ pools.pool_id }}', '{{pools.owner_id }}')">{{pools.pool_name}}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
+			<div class='col-md-4 col-md-offset-4' style="text-align:center;">
+				<a href="create_pool.php" class="btn btn-block btn-primary">Create Pool</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -31,13 +41,17 @@
 
 </html>
 <script>
-        function loadTeam(pid, oid)
-        {  
-       	 window.location.assign("./team.php?pid=" + pid + "&oid=" + oid);
-       	}
-       	
-   </script> 
-   <script>
+function loadTeam(pid, oid, team_name)
+{  
+   	if(team_name == ''){
+		window.location.assign('./create_team.php?pid=' + pid + '&oid=' + oid);
+   	}else{
+    	window.location.assign("./team.php?pid=" + pid + "&oid=" + oid);
+   	}
+}
+
+</script>
+<script>
    
   	function loadPool(pid, oid)
   	{

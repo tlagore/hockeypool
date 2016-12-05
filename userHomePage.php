@@ -23,8 +23,13 @@ if($user){
 		}
 		else {
 
-			$sql = "SELECT  t.team_name, p.name, t.pool_id, t.owner_id 
-			FROM pool as p, fantasy_team as t WHERE p.pid = t.pool_id AND t.owner_id = '$user'";
+			$sql = "SELECT o.name, pi.owner_id, pi.pool_id, p.name AS pool_name, ft.team_name FROM
+  					pool AS p 
+  					JOIN participates_in AS pi ON p.pid = pi.pool_id
+					  JOIN owner AS o on o.uid = pi.owner_id
+					  LEFT JOIN fantasy_team AS ft ON ft.pool_id = p.pid AND ft.owner_id = pi.owner_id
+					  WHERE pi.owner_id = $user";
+			
 			$result = mysqli_query($conn, $sql);
 
 					$params = array(

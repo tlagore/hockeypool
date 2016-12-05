@@ -19,9 +19,6 @@ if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
 	$newTeamSql = "INSERT INTO fantasy_team (pool_id, owner_id, team_name) VALUES ($pid, $oid, '$team_name')";
 	$conn->query ( $newTeamSql );
 	
-	$player = explode ( '#', $_POST ['teamIn1'] );
-	$insertPlayerSql = "INSERT INTO composed_of (pool_id, owner_id, player_name, player_team) VALUES ($pid, $oid, '$player[0]', '$player[1]');";
-	$conn->query ( $insertPlayerSql );
 	for($x = 1; $x <= $num_players; $x ++) {
 		$player = explode ( '#', $_POST ['teamIn' . ( string ) $x] );
 		$insertPlayerSql = "INSERT INTO composed_of (pool_id, owner_id, player_name, player_team) VALUES ($pid, $oid, '$player[0]', '$player[1]');";

@@ -14,6 +14,10 @@ div.midTable {
 	
 }
 
+body{
+	background-image: url("../img/Hockey.jpg");
+	background-size: 100% 100%;
+}
 
 .botRightButton{
 	position: absolute;
@@ -26,5 +30,4 @@ div.midTable {
 }
 tr{
 	text-align:center;	
-
 }
