@@ -14,6 +14,7 @@ div.midTable {
 	
 }
 
+
 .botRightButton{
 	position: absolute;
 	bottom: 0;
@@ -22,4 +23,8 @@ div.midTable {
 	border: none;
 	font-size: 250px;
 	color: #00FFFF;
+}
+tr{
+	text-align:center;	
+
 }

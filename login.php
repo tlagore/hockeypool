@@ -60,8 +60,6 @@ if($user)
  	$register_redirect = $_GET['rr'];
  	$redirect = $_GET['rd'];
  	
- 	echo $redirect;
- 	
  	$params = array(
  			'register_redirect' => $register_redirect,
  			'login_required' => $redirect
