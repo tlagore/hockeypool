@@ -3,34 +3,32 @@ include_once 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem ( './templates' );
 $twig = new Twig_Environment ( $loader );
 
-
 require 'lib.php';
 require 'sql_lib.php';
 
 if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
-	$pid = $_POST['pid'];
-	$oid = $_POST['oid'];
-	$team_name = $_POST['team_name'];
+	$pid = $_POST ['pid'];
+	$oid = $_POST ['oid'];
+	$team_name = $_POST ['team_name'];
 	
-	$conn = getConn('localhost', 'root', 'Yaygroup_19', 'hockeypool');
+	$conn = getConn ( 'localhost', 'root', 'Yaygroup_19', 'hockeypool' );
 	$rules = $conn->query ( "SELECT num_players FROM pool_rules WHERE pool_id = $pid;" );
-	$row = mysqli_fetch_row($rules);
-	$num_players = intval($row[0]);
+	$row = mysqli_fetch_row ( $rules );
+	$num_players = intval ( $row [0] );
 	
 	$newTeamSql = "INSERT INTO fantasy_team (pool_id, owner_id, team_name) VALUES ($pid, $oid, '$team_name')";
-	$conn->query($newTeamSql);
+	$conn->query ( $newTeamSql );
 	
-	$player = explode('#', $_POST['teamIn1']);
+	$player = explode ( '#', $_POST ['teamIn1'] );
 	$insertPlayerSql = "INSERT INTO composed_of (pool_id, owner_id, player_name, player_team) VALUES ($pid, $oid, '$player[0]', '$player[1]');";
-	$conn->query($insertPlayerSql);
-	for($x = 1; $x <= $num_players; $x++)
-	{
-		$player = explode('#', $_POST['teamIn'.(string)$x]);
+	$conn->query ( $insertPlayerSql );
+	for($x = 1; $x <= $num_players; $x ++) {
+		$player = explode ( '#', $_POST ['teamIn' . ( string ) $x] );
 		$insertPlayerSql = "INSERT INTO composed_of (pool_id, owner_id, player_name, player_team) VALUES ($pid, $oid, '$player[0]', '$player[1]');";
-		$conn->query($insertPlayerSql);
-	}	
+		$conn->query ( $insertPlayerSql );
+	}
 	
-	header('Location: /hockeypool/team.php?oid='.$oid.'&pid='.$pid);
+	header ( 'Location: /hockeypool/team.php?oid=' . $oid . '&pid=' . $pid );
 } else {
 	$user = $_COOKIE ['cur_login'];
 	// if user is logged in, refresh cookie
@@ -46,9 +44,9 @@ if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
 	} else if ($user != $owner_id) {
 		header ( "Location: /hockeypool/login.php?rd=1" );
 	}
-
+	
 	$conn = getConn ( "localhost", "root", "Yaygroup_19", "hockeypool" );
-	$email = getUser($conn, $user);
+	$email = getUser ( $conn, $user );
 	
 	$sqlTeams = $getTeam;
 	
@@ -58,7 +56,7 @@ if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
 	
 	$result = $conn->query ( $sqlTeams );
 	// if team already exists, redirect to view team - only allowed one team per pool.
-	if($result){
+	if ($result) {
 		if (mysqli_num_rows ( $result ) > 0) {
 			header ( "Location: /hockeypool/team.php?oid=" . $owner_id . "&pid=" . $pool_id );
 		}
@@ -84,7 +82,7 @@ if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
 			'cur_login' => $email,
 			'num_players' => $num_players,
 			'pool_id' => $pool_id,
-			'owner_id' => $owner_id
+			'owner_id' => $owner_id 
 	);
 	
 	echo $twig->render ( 'create_team.twig', $params );
