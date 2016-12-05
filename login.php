@@ -63,10 +63,4 @@ if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
 			'login_required' => $redirect 
 	);
 	echo $twig->render ( 'login.twig', $params );
-}
-?>
-	
-	
-	
-	
-	
+}	
