@@ -3,8 +3,12 @@
 
 {% block primary_content %}
 <TITLE>My pools</TITLE>
-<html>
 
+<div class="bs-component">
+	<h1>
+        My Pools
+    </h1>
+</div>
 <div>
 	<div class="bs-component">
 		<div class="table-responsive">
@@ -25,7 +29,7 @@
 						{%  if pools.team_name is not null %} {{ pools.team_name }} {% else %}
 						Create a team {% endif %}
 					</td>
-					<td
+					<td class="clickable" style="cursor:pointer;"
 						onClick="loadPool('{{ pools.pool_id }}', '{{pools.owner_id }}')">{{pools.pool_name}}</td>
 				</tr>
 				{% endfor %}
@@ -42,9 +46,6 @@
 <div id="notification" style="display: none;">
   <span class="dismiss"><a title="dismiss this notification">x</a></span>
 </div>
-
-</html>
-
 
 {% endblock %}
 

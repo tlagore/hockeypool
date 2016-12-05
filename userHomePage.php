@@ -13,8 +13,6 @@ if($user){
 }
 		require 'lib.php';
 		
-		
-		
 		// Create connection
 		$conn = getConn("localhost", "root", "Yaygroup_19", "hockeypool");
 		$owner_name = getUser($conn, $_COOKIE['cur_login']);

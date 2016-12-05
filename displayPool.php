@@ -23,19 +23,15 @@ if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
 else {
-/*
-	$sql = "SELECT  t.team_name, p.name, t.pool_id, t.owner_id
-	FROM pool as p, fantasy_team as t WHERE p.pid = t.pool_id
-	AND p.pid = '$pool_id'";
-	 */
-	$sql = "SELECT DISTINCT o.name, p.owner_id, p.team_name, SUM(p.FantasyPoints) AS FantasyPoints FROM
-  (SELECT co.owner_id, co.pool_id, ft.team_name, TRUNCATE((nps.goals * pr.goals_val +
+
+	$sql = "SELECT DISTINCT o.name, p.owner_id, p.pool_name, p.team_name, TRUNCATE(SUM(p.FantasyPoints),2) AS FantasyPoints FROM
+  (SELECT co.owner_id, co.pool_id, p.name AS pool_name, ft.team_name, (nps.goals * pr.goals_val +
    nps.assists * pr.assists_val +
    nps.plus_minus * pr.plus_minus_val +
    nps.penalty_mins * pr.penalty_mins_val +
    nps.shots_on_goal * pr.shots_on_goal_val +
    nps.pp_goals * pr.pp_goals_val +
-   nps.gw_goals * pr.gw_goals_val),2) AS FantasyPoints
+   nps.gw_goals * pr.gw_goals_val) AS FantasyPoints
   FROM
    nhl_player_statistics AS nps, composed_of AS co,
    pool_rules AS pr, fantasy_team AS ft, pool AS p
@@ -49,20 +45,37 @@ else {
    AND nps.year = 2016) AS p,
       owner AS o WHERE p.owner_id = o.uid
       GROUP BY p.owner_id, p.pool_id
- UNION SELECT o.name, o.uid AS owner_id, null, 0 as FantasyPoints
+ UNION SELECT o.name, o.uid AS owner_id, p.name AS team_name, null, 0 as FantasyPoints
     FROM owner AS o 
     JOIN participates_in AS pi ON o.uid = pi.owner_id
+    JOIN pool AS p on p.pid = pi.pool_id
     AND pi.pool_id = $pool_id
     AND NOT EXISTS
       (SELECT * FROM 
           fantasy_team WHERE pool_id = $pool_id AND
-            owner_id = o.uid)";
+            owner_id = o.uid);";
 	$result = mysqli_query($conn, $sql);
+	
+	$leaderSql = "SELECT pool_leader FROM participates_in WHERE pool_id = $pool_id AND owner_id = $user";
+	$leaderResult = mysqli_query($conn, $leaderSql);
+	if(mysqli_num_rows($leaderResult) > 0)
+	{
+		$row = mysqli_fetch_row($leaderResult);
+		$leader = $row[0];
+	}
+	
+	if(mysqli_num_rows($result) > 0)
+	{
+		$row = mysqli_fetch_row($result);
+		$pool_name = $row[2];
+	}
 
 	$params = array(
 			'teams_in_pool' => $result,
 			'pool_id' => $pool_id,
-			'cur_login' => $email
+			'cur_login' => $email,
+			'am_leader' => $leader,
+			'pool_name' => $pool_name
 	);
 	echo $twig->render('displayPool.twig', $params);
 

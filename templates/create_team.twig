@@ -134,7 +134,8 @@
 	}
 
 	$(document).ready(function() {
-		var rosterTable = $('#rosterTable').DataTable();
+		var rosterTable = $('#rosterTable').DataTable({
+		});
 		var teamTable = $('#teamTable').DataTable();
 
 		rosterTable.on('click', 'tr', function() {

@@ -4,16 +4,16 @@
 <div class="bs-component">
 		<h1>
         	{% if pool_name %}
-        		{{ pool_name }}
+        		Pool name: {{ pool_name }}
         	{% else %}
         		Pool not found...
         	{% endif %}
         </h1>
 	
     	{% if team_name and my_team %}
-    		<h3>{{ team_name }} (My Team)</h3>
+    		<h3>Team name: {{ team_name }} (My Team)</h3>
     	{% elseif team_name %}
-    		<h3>{{ team_name }} (Other persons team!)</h3>
+    		<h3>Team name: {{ team_name }} ({{ owner_name }}'s team)</h3>
     	{% else %}
     		<h3>Team not found...</h3>
     		<h4><a class="btn-primary btn-lg" href="create_team.php">Create Team?</a></h4>
@@ -54,7 +54,7 @@
                 	<td align="center">{{ player.shots_on_goal }}</td>
                 	<td align="center">{{ player.pp_goals }}</td>
                 	<td align="center">{{ player.gw_goals }}</td>
-                	<td align="center">{{ player.FantasyPoints }}</td>
+                	<td align="center">{{ player.FantasyPoints | number_format('2', '.', ',') }}</td>
             	</tr>
             {% endfor %}
             </tbody>
@@ -74,7 +74,7 @@
                     	<td></td>
                     	<td class="success">Total FP:</td>
                       	<td align="center" class="success">
-                			{{ total_points }}
+                			{{ total_points | number_format(2, '.', ',') }}
                     	</td>
                     </tr>
                 </thead>
@@ -88,7 +88,9 @@
 <script type="text/javascript">
 $(document).ready(function() 
     { 
-        $("#viewTeamTable").DataTable(); 
+        $("#viewTeamTable").DataTable({
+			"order": [[ 11, "desc"]]
+		}); 
     } 
 		); 
 </script>

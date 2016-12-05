@@ -22,11 +22,11 @@ if(!owner_id || !$pool_id)
 }
 
 require 'lib.php';
+//make sure to declare variables need in sql_lib.h before including
 require 'sql_lib.php';
 
 $conn = getConn("localhost", "root", "Yaygroup_19", "hockeypool");
 $sql = $getTeam;
-
 
 if($conn->connect_error)
 {
@@ -41,7 +41,8 @@ if(mysqli_num_rows($result) > 0)
 	{
 		$pool_name = $row[0];
 		$team_name = $row[1];
-		$fp = $fp + $row[13];
+		$owner_name = $row[2];
+		$fp = $fp + $row[14];
 	}
 }
 
@@ -51,7 +52,8 @@ $params = array(
 	'pool_name' => $pool_name,
 	'total_points' => $fp,
 	'my_team' => $owner_id == $user,
-	'cur_login' => $email
+	'cur_login' => $email,
+	'owner_name' => $owner_name
 );
 
 echo $twig->render('team.twig', $params);
