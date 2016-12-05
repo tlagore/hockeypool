@@ -3,7 +3,7 @@
 {% block primary_content %}
 
 
-<form action="create_team.php" method="post" id="createTeamForm">
+<form class="form-horizontal" action="create_team.php" method="post" id="createTeamForm">
 	<div class="row">
 		<div class="col-lg-3">
 			<input type="text" class="form-control" name="team_name" required
@@ -144,8 +144,6 @@
 			if(numPlayers > 0){
     			var $row = $(this);
 
-    			//This gets the id of the row
-    			//alert(rosterTable.row(this).id());
     			var addRow = rosterTable.row(this);
     			teamTable.row.add(addRow.data()).draw();
     			addRow.remove().draw();
@@ -167,15 +165,6 @@
 			//alert(numPlayers);
 			document.getElementById('numRemaining').innerHTML = numPlayers;
 			});
-			/*
-    			var $row = $(this);
-    			var addRow = teamTable.row(this);
-    			rosterTable.row.add(addRow.data()).draw();
-    			addRow.remove().draw();
-    			document.getElementById('numRemaining').innertHTML = parseInt(document.getElementById('numRemaining').innerHTML) + 1;
-			}else{
-				alert('You have used all your allowable players! Remove players to add more.');
-			}*/
 	});
 
 	$('#rosterTable').on('page.dt', function() {
@@ -185,36 +174,5 @@
 	$('#teamTable').on('page.dt', function() {
 		//add logic to do stuff when page changes on roster table
 	});
-
-	function checkboxChanged(cb) {
-
-		var num = document.getElementById("numRemaining").innerHTML;
-
-		if (cb != null && cb.checked)
-			num = parseInt(num) - 1;
-		else if (cb != null)
-			num = parseInt(num) + 1;
-
-		if (num === 0) {
-			var checkboxes = document
-					.getElementsByClassName('checkboxSelector');
-			for (var i = 0; i < checkboxes.length; i++) {
-				if (!checkboxes[i].checked)
-					checkboxes[i].disabled = true;
-			}
-		} else if (num === 1) {
-			var checkboxes = document
-					.getElementsByClassName('checkboxSelector');
-			for (var i = 0; i < checkboxes.length; i++) {
-				checkboxes[i].disabled = false;
-			}
-		}
-		if (cb != null) {
-			document.getElementById("numRemaining").innerHTML = num;
-		}
-		/*$('#mytable tr').filter(':has(:checkbox:checked)').each(function() {
-			 $('#out').append(this.id);
-			});*/
-	}
 </script>
 {% endblock %}
