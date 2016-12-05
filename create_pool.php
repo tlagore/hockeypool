@@ -12,7 +12,7 @@ if ($user) {
 	$conn = getConn ( 'localhost', 'root', 'Yaygroup_19', 'hockeypool' );
 	$email = getUser ( $conn, $_COOKIE ['cur_login'] );
 } else {
-	header ( "Location: /hockeypool/login.php?rd=1" );
+	header( "Location: /hockeypool/login.php?rd=1" );
 }
 
 if ($_SERVER ['REQUEST_METHOD'] === 'POST') {

@@ -8,7 +8,7 @@ $user = $_COOKIE['cur_login'];
 if($user){
 	setcookie('cur_user', $user, time() + 1200, "/");
 }else {
-	header('Location: /hockeypool/login.php');
+	header('Location: /hockeypool/login.php?rd=1');
 	die();
 }
 		require 'lib.php';
