@@ -1344,7 +1344,7 @@ mark,
   color: #df691a;
 }
 a.text-primary:hover,
-a.text-primary:focus {
+a.text-primary:focus {#b15315
   color: #b15315;
 }
 .text-success {

@@ -1,91 +1,106 @@
 {% extends 'base.twig' %}
 
 {% block primary_content %}
-<form class="form-horizontal" action="create_pool.php" method="post">
-	<fieldset>
-		<legend>Pool Rules</legend>
-		<div class="form-group">
-			<label for="inputTeamName" class="col-lg-2 control-label">Team Name</label>
-			<div class="col-lg-2">
-				<input type="text" required class="form-control" id="inputTeamName"
-					placeholder="Enter Team Name" maxlength="20" name ="teamName">
-			</div>
-		
-			<label for="inputGoals" class="col-lg-2 control-label">Goals</label>
-			<div class="col-lg-2">
-				<input type="text" required class="form-control" id="inputGoals"
-					placeholder="Fantasy Point Value" maxlength="3"
-					onkeypress='return event.charCode >= 48 && event.charCode <= 57' name = "goal">
-			</div>
+<div class="row">
+	<div class="well bs-component">
+		<form class="form-horizontal" action="create_pool.php" method="post">
+			<fieldset>
+				<legend>Pool Rules</legend>
+				<div class="form-group">
+					<label for="inputTeamName" class="col-lg-2 control-label">Pool
+						Name</label>
+					<div class="col-lg-2">
+						<input type="text" required class="form-control"
+							id="inputTeamName" placeholder="Enter Pool Name" maxlength="20"
+							name="teamName">
+					</div>
 
-			<label for="inputAssists" class="col-lg-2 control-label">Assists</label>
-			<div class="col-lg-2">
-				<input type="text" required class="form-control" id="inputAssists"
-					placeholder="Fantasy Point Value" maxlength="3"
-					onkeypress='return event.charCode >= 48 && event.charCode <= 57' name = "assist">
-			</div>
+					<label for="inputGoals" class="col-lg-2 control-label">Goals</label>
+					<div class="col-lg-2">
+						<input type="text" required class="form-control" id="inputGoals"
+							placeholder="Fantasy Value" maxlength="3"
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+							name="goal">
+					</div>
 
-			
-		</div>
-		<div class="form-group">
-		
-		<label for="inputPlusMinus" class="col-lg-2 control-label">+/-</label>
-			<div class="col-lg-2">
-				<input type="text" required class="form-control"
-					id="inputPlusMinus" placeholder="Fantasy Point Value" maxlength="3"
-					onkeypress='return event.charCode >= 48 && event.charCode <= 57' name = "plusMinus">
-			</div>
-			<label for="inputPim" class="col-lg-2 control-label">Penalty
-				Minutes</label>
-			<div class="col-lg-2">
-				<input type="text" required class="form-control" id="inputPim"
-					placeholder="Fantasy Point Value" maxlength="3"
-					onkeypress='return event.charCode >= 48 && event.charCode <= 57' name = "PIM">
-			</div>
+					<label for="inputAssists" class="col-lg-2 control-label">Assists</label>
+					<div class="col-lg-2">
+						<input type="text" required class="form-control" id="inputAssists"
+							placeholder="Fantasy Value" maxlength="3"
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+							name="assist">
+					</div>
 
-			<label for="inputSog" class="col-lg-2 control-label">Shots on
-				Goal</label>
-			<div class="col-lg-2">
-				<input type="text" required class="form-control" id="inputSog"
-					placeholder="Fantasy Point Value" maxlength="3"
-					onkeypress='return event.charCode >= 48 && event.charCode <= 57' name = "SOG">
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="inputPp" class="col-lg-2 control-label">Power
-				Play Goals</label>
-			<div class="col-lg-2">
-				<input type="text" required class="form-control" id="inputPp"
-					placeholder="Fantasy Value" maxlength="3"
-					onkeypress='return event.charCode >= 48 && event.charCode <= 57' name = "PPG">
-			</div>
-			<label for="inputGw" class="col-lg-2 control-label">Game
-				Winning Goals</label>
-			<div class="col-lg-2">
-				<input type="text" required class="form-control" id="inputGw"
-					placeholder="Fantasy Point Value" maxlength="3"
-					onkeypress='return event.charCode >= 48 && event.charCode <= 57' name = "GWG">
-			</div>
-			<label for="inputNumPlayers" class="col-lg-2 control-label">Number of Players</label>
-			<div class="col-lg-2">
-				<input type="text" required class="form-control" id="inputNumPlayers"
-					placeholder="# Players allowed" maxlength="3"
-					onkeypress='return event.charCode >= 48 && event.charCode <= 57' name = "numPlayers">
-			</div>
 
-		</div>
+				</div>
+				<div class="form-group">
 
-		<input class="botRightButton" type="submit" Value="Create Pool">
-</form>
+					<label for="inputPlusMinus" class="col-lg-2 control-label">+/-</label>
+					<div class="col-lg-2">
+						<input type="text" required class="form-control"
+							id="inputPlusMinus" placeholder="Fantasy Value" maxlength="3"
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+							name="plusMinus">
+					</div>
+					<label for="inputPim" class="col-lg-2 control-label">Penalty
+						Minutes</label>
+					<div class="col-lg-2">
+						<input type="text" required class="form-control" id="inputPim"
+							placeholder="Fantasy Value" maxlength="3"
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+							name="PIM">
+					</div>
+
+					<label for="inputSog" class="col-lg-2 control-label">Shots
+						on Goal</label>
+					<div class="col-lg-2">
+						<input type="text" required class="form-control" id="inputSog"
+							placeholder="Fantasy Value" maxlength="3"
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+							name="SOG">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPp" class="col-lg-2 control-label">Power
+						Play Goals</label>
+					<div class="col-lg-2">
+						<input type="text" required class="form-control" id="inputPp"
+							placeholder="Fantasy Value" maxlength="3"
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+							name="PPG">
+					</div>
+					<label for="inputGw" class="col-lg-2 control-label">Game
+						Winning Goals</label>
+					<div class="col-lg-2">
+						<input type="text" required class="form-control" id="inputGw"
+							placeholder="Fantasy Value" maxlength="3"
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+							name="GWG">
+					</div>
+					<label for="inputNumPlayers" class="col-lg-2 control-label">Number
+						of Players</label>
+					<div class="col-lg-2">
+						<input type="text" required class="form-control"
+							id="inputNumPlayers" placeholder="# Players allowed"
+							maxlength="3"
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+							name="numPlayers">
+					</div>
+
+				</div>
+
+				<div class='col-md-4 col-md-offset-4' style="text-align: center;">
+					<input type="submit" value="Create Pool"
+						class="btn btn-block btn-primary">
+				</div>
+		</form>
+	</div>
+</div>
 
 <script>
-$(document).ready(function(){
-	$('#inputNumPlayers').AllowNumericOnly();
-})
-
-
-
-
+	$(document).ready(function() {
+		$('#inputNumPlayers').AllowNumericOnly();
+	})
 </script>
 
 {% endblock %}
