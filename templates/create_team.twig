@@ -3,95 +3,138 @@
 {% block primary_content %}
 
 
+<form action="create_team.php" method="post" id="createTeamForm">
+	<div class="row">
+		<div class="col-lg-3">
+			<input type="text" class="form-control" name="team_name" required
+				placeholder="Team Name">
+		</div>
+		<div class="col-lg-2">
+			<input class="btn btn-block btn-primary" type="submit" value="Create Team">
+		</div>
+		<div class="col-lg-7 col-md-7 col-sm-7" style="text-align: right;">
+			<p>
+				Remaining allowed players: <span id="numRemaining">{{ num_players }}</span>
+			</p>
+		</div>
+	</div>
+	<br />
 
-<div class="row">
-	<div class="col-lg-4">
-		<input type="text" class="form-control" name="team_name"
-			placeholder="Team Name">
+	<div class="bs-component">
+		<div class="onHover">
+			<table id="rosterTable" class="table table-striped table-hover">
+				<thead class="thead-inverse">
+					<tr class="success" style="text-align: center">
+						<th style="width: 15%" class="onHover">Name</th>
+						<th align="center">Team</th>
+						<th align="center">Position</th>
+						<th align="center">Games Played</th>
+						<th align="center">Goals</th>
+						<th align="center">Assists</th>
+						<th align="center">+/-</th>
+						<th align="center">Penalty Mins</th>
+						<th align="center">Shots on Goal</th>
+						<th align="center">PP goals</th>
+						<th align="center">GW goals</th>
+						<th>Pick</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for player in nhl_players %}
+					<tr class="clickableRow" id="{{ player.name }}{{ player.team }}">
+						<td align="center">{{ player.name }}</td>
+						<td align="center">{{ player.team }}</td>
+						<td align="center">{{ player.position }}</td>
+						<td align="center">{{ player.games_played }}</td>
+						<td align="center">{{ player.goals }}</td>
+						<td align="center">{{ player.assists }}</td>
+						<td align="center">{{ player.plus_minus }}</td>
+						<td align="center">{{ player.penalty_mins }}</td>
+						<td align="center">{{ player.shots_on_goal }}</td>
+						<td align="center">{{ player.pp_goals }}</td>
+						<td align="center">{{ player.gw_goals }}</td>
+						<td><a href="#"><span
+								id="{{ player.name }}{{ player.team }}span"
+								style="color: #5cb85c;" class="glyphicon glyphicon-plus"></span></a>
+							{# <td><input class="checkboxSelector" type="button"
+							onclick='checkboxChanged(this);' value="add"></td> #}
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8" style="text-align: right;">
-		<p>
-			Remaining allowed players: <span id="numRemaining">{{ num_players }}</span>
-		</p>
+	<div class="bs-component">
+		<div class="onHover">
+			<table id="teamTable" name="teamTable" class="table table-striped table-hover">
+				<thead class="thead-inverse">
+					<tr class="success">
+						<th style="width: 15%" class="onHover" align="center">Name</th>
+						<th align="center">Team</th>
+						<th align="center">Position</th>
+						<th align="center">Games Played</th>
+						<th align="center">Goals</th>
+						<th align="center">Assists</th>
+						<th align="center">+/-</th>
+						<th align="center">Penalty Mins</th>
+						<th align="center">Shots on Goal</th>
+						<th align="center">PP goals</th>
+						<th align="center">GW goals</th>
+						<th>Pick</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
-<br />
-
-
-<div class="bs-component">
-	<div class="onHover">
-		<table id="rosterTable" class="table table-striped table-hover">
-			<thead class="thead-inverse">
-				<tr class="success" style="text-align: center">
-					<th style="width:15%" class="onHover">Name</th>
-					<th align="center">Team</th>
-					<th align="center">Position</th>
-					<th align="center">Games Played</th>
-					<th align="center">Goals</th>
-					<th align="center">Assists</th>
-					<th align="center">+/-</th>
-					<th align="center">Penalty Mins</th>
-					<th align="center">Shots on Goal</th>
-					<th align="center">PP goals</th>
-					<th align="center">GW goals</th>
-					<th>Pick</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for player in nhl_players %}
-				<tr class="clickableRow" id="{{ player.name }}{{ player.team }}">
-					<td align="center">{{ player.name }}</td>
-					<td align="center">{{ player.team }}</td>
-					<td align="center">{{ player.position }}</td>
-					<td align="center">{{ player.games_played }}</td>
-					<td align="center">{{ player.goals }}</td>
-					<td align="center">{{ player.assists }}</td>
-					<td align="center">{{ player.plus_minus }}</td>
-					<td align="center">{{ player.penalty_mins }}</td>
-					<td align="center">{{ player.shots_on_goal }}</td>
-					<td align="center">{{ player.pp_goals }}</td>
-					<td align="center">{{ player.gw_goals }}</td>
-					<td><a href="#"><span
-							id="{{ player.name }}{{ player.team }}span"
-							style="color: #5cb85c;" class="glyphicon glyphicon-plus"></span></a>
-						{# <td><input class="checkboxSelector" type="button"
-						onclick='checkboxChanged(this);' value="add"></td> #}
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-</div>
-<div class="bs-component">
-	<div class="onHover">
-		<table id="teamTable" class="table table-striped table-hover">
-			<thead class="thead-inverse">
-				<tr class="success">
-					<th style="width:15%" class="onHover" align="center">Name</th>
-					<th align="center">Team</th>
-					<th align="center">Position</th>
-					<th align="center">Games Played</th>
-					<th align="center">Goals</th>
-					<th align="center">Assists</th>
-					<th align="center">+/-</th>
-					<th align="center">Penalty Mins</th>
-					<th align="center">Shots on Goal</th>
-					<th align="center">PP goals</th>
-					<th align="center">GW goals</th>
-					<th>Pick</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-	</div>
-</div>
+	<input type="hidden" name="oid" value="{{ owner_id }}">
+	<input type="hidden" name="pid" value="{{ pool_id }}">
+</form>
 
 {% endblock %}
 
 
 {% block extra_scripts %}
 <script type="text/javascript">
+	$('#createTeamForm').submit(function(){
+			var numPlayers = parseInt(document.getElementById('numRemaining').innerHTML);
+			if(numPlayers != 0)
+			{ 
+				if(confirm('You haven\'t picked as many players as you\'re allowed, create team anyways? You can\'t undo this!'))
+				{
+    				addHiddenInputs();
+    				return true;
+				}else
+				{
+					return false;
+				}
+			}else if(confirm('Confirm team creation?'))
+			{
+				addHiddenInputs();	
+				return true;
+			}else
+			{
+				return false;
+			}
+		});
+
+	function addHiddenInputs()
+	{
+		var table = document.getElementById('teamTable');
+		for(var i = 1, row; row = table.rows[i]; i++)
+		{
+			var name = row.cells[0].innerHTML;
+			var team = row.cells[1].innerHTML;
+			//alert(name + team);
+			var input = document.createElement('input');
+			input.setAttribute('type','hidden');
+			input.setAttribute('name', 'teamIn' + i);
+			input.setAttribute('value', name + '#' + team);
+			document.getElementById('createTeamForm').appendChild(input);
+		}
+	}
+
 	$(document).ready(function() {
 		var rosterTable = $('#rosterTable').DataTable();
 		var teamTable = $('#teamTable').DataTable();
@@ -100,6 +143,9 @@
 			var numPlayers = parseInt(document.getElementById('numRemaining').innerHTML);
 			if(numPlayers > 0){
     			var $row = $(this);
+
+    			//This gets the id of the row
+    			//alert(rosterTable.row(this).id());
     			var addRow = rosterTable.row(this);
     			teamTable.row.add(addRow.data()).draw();
     			addRow.remove().draw();
