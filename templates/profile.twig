@@ -1,0 +1,97 @@
+{% extends 'base.twig' %}
+
+{% block primary_content %}
+<form class="form-horizontal" method="post" action="profile.php">
+	<fieldset>
+		<legend>Edit Profile</legend>
+		
+
+		<input type="hidden" name="email" value="{{ cur_login }}">
+
+		
+		
+		
+		<div class="form-group">
+			<h3 for ="email" class="col-lg-3 control-label">{{ cur_login }}</h3>
+			
+			
+			
+			
+			
+			<div class="col-lg-10">
+			</div>
+		</div>
+		
+		
+		
+		
+
+		<div class="form-group">
+			<label for="inputPassword" class="col-lg-2 control-label">Old
+				Password</label>
+			<div class="col-lg-10">
+				<input type="password" name="pass" required class="form-control"
+					id="EnterPassword" placeholder="Current Password">
+
+			
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="newPassword" name = "newPass" class="col-lg-2 control-label">New
+				Password</label>
+			<div class="col-lg-10">
+				<input type="password" name="newPass" class="form-control"
+					id="inputPassword" placeholder="New Password">
+
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<div class="col-lg-10 col-lg-offset-2">
+				<button type="reset" class="btn btn-default">Cancel</button>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		{%  if error  %}
+		<div class="form-group">
+			<div class="alert alert-danger  col-lg-offset-1 col-lg-10">
+				<p>
+					<span class="glyphicon glyphicon-info-sign"></span>
+					{{ error }}
+				</p>
+			</div>
+		</div>
+		{%  endif %}
+
+		{%  if passChanged  %}
+		<div class="form-group">
+			<div class="alert alert-success  col-lg-offset-1 col-lg-10">
+				<p>
+					<span class="glyphicon glyphicon-info-sign"></span>
+					{{ passChanged }}
+				</p>
+			</div>
+		</div>
+		{%  endif %}
+	</fieldset>
+</form>
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
