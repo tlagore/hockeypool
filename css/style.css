@@ -13,3 +13,13 @@ div.midTable {
 .checkboxSelector{
 	
 }
+
+.botRightButton{
+	position: absolute;
+	bottom: 0;
+	right : 0;
+	background-color: #FF00FF;
+	border: none;
+	font-size: 250px;
+	color: #00FFFF;
+}
