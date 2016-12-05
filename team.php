@@ -11,6 +11,7 @@ if($user){
 	setcookie('cur_user', $user,  time() + 1200, "/");
 }
 
+
 $owner_id = $_GET['oid'];
 $pool_id = $_GET['pid'];
 
@@ -26,11 +27,12 @@ require 'sql_lib.php';
 $conn = getConn("localhost", "root", "Yaygroup_19", "hockeypool");
 $sql = $getTeam;
 
+
 if($conn->connect_error)
 {
 	die("cannot connect to server. " . $conn->connect_error);
 }
-
+$email = getUser($conn, $user);
 $result = $conn->query($sql);
 if(mysqli_num_rows($result) > 0)
 {
@@ -49,6 +51,7 @@ $params = array(
 	'pool_name' => $pool_name,
 	'total_points' => $fp,
 	'my_team' => $owner_id == $user,
+	'cur_login' => $email
 );
 
 echo $twig->render('team.twig', $params);
