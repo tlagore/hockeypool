@@ -16,10 +16,14 @@ if ($user) {
 }
 
 if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
+	
 	$teamName = $_POST['teamName'];
-	$poolName = "Insert into pool(name) values($teamName)";
-	$createPool = mysqli_query($conn, $poolName);
-	$last_id = $conn->insert_id;
+	$poolName = "Insert into pool(name) values('$teamName')";
+	$createPool = $conn->query($poolName);
+	$last_id = mysqli_insert_id($conn);
+	
+	
+	echo $last_id;
 	
 	$goal = $_POST['goal'] ;
 	$assist =$_POST['assist'];
@@ -34,10 +38,12 @@ if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
 	$poolRules = "Insert into pool_rules Values ($last_id, $goal, $assist, $plusMinus, $PIM, $SOG, $PPG, $GWG, $budget, $numPlayers)";
 	$createPoolRules = $conn->query($poolRules);
 	
+	$isLeader = '1';
 	//	todo add to particpatews in
-	//$participates = "";
+	$participates = "Insert into participates_in(pool_id, owner_id, pool_leader) Values($last_id, $user, $isLeader)";
+	$addParticipant = mysqli_query($conn, $participates);
 	
-		//header ( "Location: /hockeypool/create_team.php?pid=$last_id&oid=$user" );
+	header ( "Location: /hockeypool/create_team.php?pid=$last_id&oid=$user" );
 } else {
 	
 	// add params as necessary
