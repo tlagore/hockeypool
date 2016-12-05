@@ -2,31 +2,49 @@
 
 
 {% block primary_content %}
-<div class = "midTable">
+<div class="midTable">
 	<div class="bs-component">
-        <div class="table-responsive">
-    		<table class="table table-striped table-hover">
-    			<thead class="thead-inverse">
-            		<tr class = "success">
-            			<th> Owner Name </th>
-            			<th>Team Name</th>
-            			<th>Fantasy points</th>
-            		</tr>
-            	</thead>
-            	{% for teams in teams_in_pool%}
-            		<tr>
-            		<td>{{ teams.name }} </td>
-            		<td>{{teams.team_name}}</td>
-            		<td>{{ teams.FantasyPoints }}</td>
-            		</tr>
-            	{% endfor %}
-             	
-     		</table>
+		<div class="onHover">
+			<table id = "displayPoolTable" class="table table-striped table-hover">
+				<thead class="thead-inverse">
+					<tr class="success">
+						<th>Owner Name</th>
+						<th>Team Name</th>
+						<th>Fantasy points</th>
+					</tr>
+				</thead>
+				{% for teams in teams_in_pool%}
+				<tr>
+					<td>{{ teams.name }}</td>
+					<td>{{teams.team_name}}</td>
+					<td>{{ teams.FantasyPoints }}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
 		</div>
 	</div>
 </div>
 
+		<form action = "addOwner.php" method = "post">
+			<input type = "hidden" value = "{{ pool_id }}" name = "pool_id">
+			<input type = "email" required placeholder = "Enter Email" name = "email">
+			<input type = "submit" value = "Add Owner" class="btn btn-primary" >
+		</form>
+		
+		
+	
 
 </html>
 
 {% endblock %}
+{% block extra_scripts %}
+<script>
+$(document).ready(function(){
+	$('#displayPoolTable').DataTable({
+			"order": [[ 2, "desc"]]
+		});
+})
+</script>
+
+{%  endblock %}
