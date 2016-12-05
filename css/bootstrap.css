@@ -6,9 +6,6 @@
  * Licensed under MIT
  * Based on Bootstrap
 */
-
-
-
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -1347,7 +1344,7 @@ mark,
   color: #df691a;
 }
 a.text-primary:hover,
-a.text-primary:focus {
+a.text-primary:focus {#b15315
   color: #b15315;
 }
 .text-success {

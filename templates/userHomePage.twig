@@ -8,7 +8,7 @@
 <div>
 	<div class="bs-component">
 		<div class="table-responsive">
-			<table class="table table-striped table-hover">
+			<table id="poolsTable" name="poolsTable" class="table table-striped table-hover">
 				<thead class="thead-inverse" align="right">
 					<tr class="success">
 						<th style="width:25%; text-align:center;">Owner</th>
@@ -20,7 +20,7 @@
 				<tr>
 					<td>{{pools.name}}</td>
 					<td
-						style="{% if pools.team_name is null %}color:lightblue;text-decoration:underline;{% endif %}cursor:pointer;"
+						class="{% if pools.team_name is null %}clickable{% endif %}" style="cursor:pointer;"
 						onClick="loadTeam('{{ pools.pool_id }}', '{{pools.owner_id }}', '{{ pools.team_name }}')">
 						{%  if pools.team_name is not null %} {{ pools.team_name }} {% else %}
 						Create a team {% endif %}
@@ -31,6 +31,7 @@
 				{% endfor %}
 
 			</table>
+			
 			<div class='col-md-4 col-md-offset-4' style="text-align:center;">
 				<a href="create_pool.php" class="btn btn-block btn-primary">Create Pool</a>
 			</div>
@@ -38,9 +39,27 @@
 	</div>
 </div>
 
+<div id="notification" style="display: none;">
+  <span class="dismiss"><a title="dismiss this notification">x</a></span>
+</div>
 
 </html>
+
+
+{% endblock %}
+
+{% block extra_scripts %}
 <script>
+/*$("#notification").fadeIn("slow").append('your message');
+$(".dismiss").click(function(){
+       $("#notification").fadeOut("slow");
+});*/
+
+    $(document).ready(function() {
+    	    $('#poolsTable').DataTable();
+    	} );
+</script>
+<script type="text/javascript">
 function loadTeam(pid, oid, team_name)
 {  
    	if(team_name == ''){
@@ -49,17 +68,12 @@ function loadTeam(pid, oid, team_name)
     	window.location.assign("./team.php?pid=" + pid + "&oid=" + oid);
    	}
 }
-
 </script>
 <script>
-   
-  	function loadPool(pid, oid)
-  	{
-  		window.location.assign("./displayPool.php?pid=" + pid + "&oid=" + oid);
-   	}
-  	
-   
-   </script>
+function loadPool(pid, oid)
+{
+	window.location.assign("./displayPool.php?pid=" + pid + "&oid=" + oid);
+}
 
+</script>
 {% endblock %}
-
