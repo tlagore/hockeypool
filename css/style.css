@@ -15,7 +15,7 @@ div.midTable {
 }
 
 body{
-	background-image: url("../img/Hockey.jpg");
+	background-image: url("../img/QljQ23w.jpg");
 	background-size: 100% 100%;
 }
 
@@ -30,4 +30,36 @@ body{
 }
 tr{
 	text-align:center;	
+}
+
+td.clickable{
+	color:lightblue;
+	text-decoration:underline;
+}
+
+
+#notification {
+    position:fixed;
+    top:0px;
+    width:100%;
+    z-index:105;
+    text-align:center;
+    font-weight:normal;
+    font-size:14px;
+    font-weight:bold;
+    color:white;
+    background-color:#FF7800;
+    padding:5px;
+}
+#notification span.dismiss {
+    border:2px solid #FFF;
+    padding:0 5px;
+    cursor:pointer;
+    float:right;
+    margin-right:10px;
+}
+#notification a {
+    color:white;
+    text-decoration:none;
+    font-weight:bold
 }
