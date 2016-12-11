@@ -4,7 +4,7 @@
 {% block primary_content %}
 
 <div class="row">
-    <div class="well bs-component">
+    <div class="well bs-component backdrop-opacity90">
     	<form class="form-horizontal" action="login.php" method="post">
      		<fieldset>
                  <legend><h2 class="">Sign In</h2></legend>
@@ -29,7 +29,7 @@
                 {%  if error  %}
         			<div class="form-group">
         				<div class="alert alert-danger  col-lg-offset-1 col-lg-10">
-        					<span class="glyphicon glyphicon-info-sign">{{ error }}</span>
+        					<p><span class="glyphicon glyphicon-info-sign"></span>{{ error }}</p>
                     	</div>
                  	</div>
     		    {%  endif %}
