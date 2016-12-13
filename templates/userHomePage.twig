@@ -8,6 +8,7 @@
 	<h1>
         My Pools
     </h1>
+    <h5><span style="color:lightgreen;" class="glyphicon glyphicon-king"></span> indicates that you are the leader of the pool.</h5>
 </div>
 <div>
 	<div class="bs-component">
@@ -22,9 +23,13 @@
 				</thead>
 				{% for pools in pools_enter%}
 				<tr>
-					<td>{{pools.name}}</td>
+					<td>
+					{% if pools.pool_leader == 1 %}
+					<span style="color:lightgreen;" class="glyphicon glyphicon-king"></span>
+					{% endif %}
+				        {{pools.name}}</td>
 					<td
-						class="{% if pools.team_name is null %}clickable{% endif %}" style="cursor:pointer;"
+						class="{% if pools.team_name is null %}clickable-red{% else %}clickable{% endif %}" style="cursor:pointer;"
 						onClick="loadTeam('{{ pools.pool_id }}', '{{pools.owner_id }}', '{{ pools.team_name }}')">
 						{%  if pools.team_name is not null %} {{ pools.team_name }} {% else %}
 						Create a team {% endif %}

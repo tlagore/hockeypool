@@ -21,7 +21,7 @@ if($user){
 		}
 		else {
 
-			$sql = "SELECT o.name, pi.owner_id, pi.pool_id, p.name AS pool_name, ft.team_name FROM
+			$sql = "SELECT o.name, pi.owner_id, pi.pool_id, p.name AS pool_name, ft.team_name, pi.pool_leader FROM
   					pool AS p 
   					JOIN participates_in AS pi ON p.pid = pi.pool_id
 					  JOIN owner AS o on o.uid = pi.owner_id

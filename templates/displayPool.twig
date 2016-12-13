@@ -7,6 +7,7 @@
 	<h1>
         Pool Name: {{ pool_name }}
     </h1>
+    <h5><span style="color:lightgreen;" class="glyphicon glyphicon-king"></span> indicates the leader of the pool.</h5>
 </div>
 
 <div class="bs-component">
@@ -21,8 +22,8 @@
 			</thead>
 			{% for teams in teams_in_pool%}
 			<tr>
-				<td>{{ teams.name }}</td>
-				<td>{% if teams.team_name is null %}No team yet{% else %}{{teams.team_name}}{% endif %}</td>
+				<td>{% if teams.pool_leader == 1 %}<span style="color:lightgreen;" class="glyphicon glyphicon-king"></span>{% endif %}  {{ teams.name }}</td>
+				<td>{% if teams.team_name is null %}No team yet{% else %}<a style="color:lightblue;" href="team.php?oid={{ teams.owner_id }}&pid={{ pool_id }}">{{teams.team_name}}</a>{% endif %}</td>
 				<td>{{ teams.FantasyPoints | number_format(2, '.' ,',') }}</td>
 			</tr>
 			{% endfor %}

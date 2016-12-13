@@ -1,90 +1,138 @@
 <html>
-    <head>
-        <title></title>
-        <link rel="stylesheet" type="text/css" href="css/dataTables.min.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-	<div class="navbar navbar-default navbar-fixed-top" id="main-navbar" style="opacity:.9;">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="/hockeypool" class="navbar-brand">HockeyPool!</a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-          	<ul class="nav navbar-nav">
-          		<li>
-              		<a href="userHomePage.php">My Pools</a>
-				</li>
-          	</ul>
+<head>
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<div class="navbar navbar-default navbar-fixed-top" id="main-navbar"
+	style="opacity: .9;">
+	<div class="container">
+		<div class="navbar-header">
+			<a href="/hockeypool" class="navbar-brand">HockeyPool!</a>
+			<button class="navbar-toggle" type="button" data-toggle="collapse"
+				data-target="#navbar-main">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="navbar-collapse collapse" id="navbar-main">
+			<ul class="nav navbar-nav">
+				<li><a href="userHomePage.php">My Pools</a></li>
+				<li><a href="statistics.php">NHL Statistics</a></li>
+			</ul>
 
-          	<ul class="nav navbar-nav navbar-right">
-          	{% if cur_login %}
-          		<li><a href="profile.php">{{ cur_login }}</a></li>
-          		<li><a href="logout.php">Logout</a></li>
-          	{% else %}
-            	<li><a href="login.php">Login</a></li>
-            	<li><a href="Register.php">Register</a></li>
-            {% endif %}
-        	</ul>
-    	</div>
+			<ul class="nav navbar-nav navbar-right">
+				{% if cur_login %}
+				<li><a href="profile.php">{{ cur_login }}</a></li>
+				<li><a href="logout.php">Logout</a></li>
+				{% else %}
+				<li><a href="login.php">Login</a></li>
+				<li><a href="Register.php">Register</a></li>
+				{% endif %}
+			</ul>
+		</div>
 	</div>
+	<img src="img/loading.gif" class="loader"></img>
 </div>
-<body style="padding-top:65px;">
-    <div class="container">
-    	{% block primary_content %}
-     	{% endblock %}
+
+
+<body style="padding-top: 65px;">
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    	<center style="color: #df691a;">Top 10</center>
+    	<!-- Wrapper for slides -->
+    	<div class="carousel-inner" role="listbox">
+    		<div class="item active">
+    			<center>Crosby, Sidney&nbsp;&nbsp;&nbsp;PIT&nbsp;&nbsp;&nbsp;G:18&nbsp;&nbsp;&nbsp;A:16&nbsp;&nbsp;&nbsp;+/-:3</center>
+    		</div>
+    
+    		<div class="item">
+    			<center>Kane,&nbsp;&nbsp;&nbsp;Patrick&nbsp;&nbsp;&nbsp;CHI&nbsp;&nbsp;&nbsp;G:8&nbsp;&nbsp;&nbsp;A:16&nbsp;&nbsp;&nbsp;+/-:3</center>
+    		</div>
+    
+    		<div class="item">
+    			<center>Kucherov,&nbsp;&nbsp;&nbsp;Nikita&nbsp;&nbsp;&nbsp;TB&nbsp;&nbsp;&nbsp;G:12&nbsp;&nbsp;&nbsp;A:16&nbsp;&nbsp;&nbsp;+/-:11</center>
+    		</div>
+    
+    		<div class="item">
+    			<center>Malkin,&nbsp;&nbsp;&nbsp;Evgeni&nbsp;&nbsp;&nbsp;PIT&nbsp;&nbsp;&nbsp;G:9&nbsp;&nbsp;&nbsp;A:+/-:0</center>
+    		</div>
+    		<div class="item">
+    			<center>McDavid,&nbsp;&nbsp;&nbsp;Connor&nbsp;&nbsp;&nbsp;EDM&nbsp;&nbsp;&nbsp;G:11&nbsp;&nbsp;&nbsp;A:23&nbsp;&nbsp;&nbsp;+/-:9</center>
+    		</div>
+    		<div class="item">
+    			<center>Scheifele,&nbsp;&nbsp;&nbsp;Mark&nbsp;&nbsp;&nbsp;WPG&nbsp;&nbsp;&nbsp;G:13&nbsp;&nbsp;&nbsp;A:13&nbsp;&nbsp;&nbsp;+/-:5</center>
+    		</div>
+    		<div class="item">
+    			<center>Seguin,&nbsp;&nbsp;&nbsp;Tyler&nbsp;&nbsp;&nbsp;DAL&nbsp;&nbsp;&nbsp;G:8&nbsp;&nbsp;&nbsp;A:17&nbsp;&nbsp;&nbsp;+/-:1</center>
+    		</div>
+    	</div>
+    </div>
+	<div class="container">
+		{% block primary_content %}
+		{% endblock %}
 	</div>
 </body>
 </html>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="js/jquery.tablesorter.js"></script>
 <script src="js/jquery.tablesorter.pager.js"></script>
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-
 <script>
-$(document).ready(function(){
-    $('#menu-btn').click(function(){
-            var margTop = $('#menu-btn').css('margin-top').toString();
-            if (margTop === "0px")
-            {
-                $('#main-navbar').animate({
-                            top: "0px"
-                            }, 300, function(){
-                    });
+	$(document)
+			.ready(
+					function() {
+						$('#menu-btn')
+								.click(
+										function() {
+											var margTop = $('#menu-btn').css(
+													'margin-top').toString();
+											if (margTop === "0px") {
+												$('#main-navbar').animate({
+													top : "0px"
+												}, 300, function() {
+												});
 
-                    $('#menu-btn').animate({
-                            marginTop: "60px"
-                            }, 300, function(){
-                    });
+												$('#menu-btn').animate({
+													marginTop : "60px"
+												}, 300, function() {
+												});
 
-                    $('#menu-btn').html("<span class='glyphicon glyphicon-menu-up'></span>");
-            }else
-            {
-                    $('#main-navbar').animate({
-                            top: "-60px"
-                            }, 300, function(){
-                    });
+												$('#menu-btn')
+														.html(
+																"<span class='glyphicon glyphicon-menu-up'></span>");
+											} else {
+												$('#main-navbar').animate({
+													top : "-60px"
+												}, 300, function() {
+												});
 
-                    $('#menu-btn').animate({
-                            marginTop: "0px"
-                            }, 300, function(){
-                    });
+												$('#menu-btn').animate({
+													marginTop : "0px"
+												}, 300, function() {
+												});
 
-                    $('#menu-btn').html("<span class='glyphicon glyphicon-menu-down'></span>");
-            }
-    });       			top: "0px"
- 
-});
+												$('#menu-btn')
+														.html(
+																"<span class='glyphicon glyphicon-menu-down'></span>");
+											}
+										});
+						top: "0px"
+
+					});
+
+	window.onload = function() {
+		$(".loader").fadeOut("slow");
+	}
 </script>
+
 {% block extra_scripts %}
 {% endblock %}
 

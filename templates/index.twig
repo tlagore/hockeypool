@@ -1,16 +1,23 @@
 {% extends 'base.twig' %}
 
 {% block primary_content %}
- <div class="page-header" id="banner">
-    <div class="row" style="margin-top:5%">
-      <div class="jumbotron" style="opacity:.9 !important;">
-      	<div class="tooltip">Hover over me
-  <span class="tooltiptext">Tooltip text</span>
+
+<div class="page-header" id="banner">
+	<div class="row" style="margin-top: 5%">
+		<div class="jumbotron" style="opacity: .9 !important;">
+			<div class="tooltip">
+				Hover over me <span class="tooltiptext">Tooltip text</span>
+			</div>
+			<h1>HockeyPool</h1>
+			<p class="lead">Is it cold in here?</p>
+			<a href="login.php" class="btn btn-primary btn-md">Get started</a>
+		</div>
+	</div>
 </div>
-        <h1>HockeyPool</h1>
-        <p class="lead">Is it cold in here?</p>
-        <a href="login.php" class="btn btn-primary btn-md">Get started</a>
-      </div>
-    </div>
-  </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+	
+</script>
 {% endblock %}

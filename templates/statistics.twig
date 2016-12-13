@@ -1,0 +1,94 @@
+{% extends 'base.twig' %}
+
+{% block primary_content %}
+<div class="bs-component">
+	<h1>
+		NHL Statistics
+    </h1>
+</div>
+
+<div class="bs-component">
+		<div class="onHover">
+			<table id="nhlTable" class="table table-striped table-hover">
+				<thead class="thead-inverse">
+					<tr class="success" style="text-align: center">
+						<th style="width: 15%" class="onHover">Name</th>
+						<th align="center">Team</th>
+						<th align="center">Position</th>
+						<th align="center">Games Played</th>
+						<th align="center">Goals</th>
+						<th align="center">Assists</th>
+						<th align="center">+/-</th>
+						<th align="center">Penalty Mins</th>
+						<th align="center">Shots on Goal</th>
+						<th align="center">PP goals</th>
+						<th align="center">GW goals</th>
+						<th>Years</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for player in nhl_players %}
+					<tr data-container="body" data-toggle="tooltip" data-placement="left">
+						<td  align="center">{{ player.name }}</td>
+						<td align="center">{{ player.team }}</td>
+						<td align="center">{{ player.position }}</td>
+						<td align="center">{{ player.games_played }}</td>
+						<td align="center">{{ player.goals }}</td>
+						<td align="center">{{ player.assists }}</td>
+						<td align="center">{{ player.plus_minus }}</td>
+						<td align="center">{{ player.penalty_mins }}</td>
+						<td align="center">{{ player.shots_on_goal }}</td>
+						<td align="center">{{ player.pp_goals }}</td>
+						<td align="center">{{ player.gw_goals }}</td>
+						<td align="center">{{ player.year }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+function titleSetter(){
+	var array = ['img/Graph1.png','img/Graph2.png', 
+			'img/Graph3.png', 'img/Graph4.png', 
+			'img/Graph5.png', 'img/Graph6.png', 
+			'img/Graph7.png', 'img/Graph8.png', 
+			'img/Graph9.png', 'img/Graph10.png'];
+	var index = Math.round(Math.random() * 100 % 3);	
+
+	return '<img src="' + array[index] + '"></img>';
+}
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({
+    		animated: 'fade',
+    		title: titleSetter,
+    		html: true
+		}); 
+});
+
+$(document).ready(function() {
+	$('#nhlTable').DataTable(
+	{
+		"oLanguage": {
+		"sSearch": "Separate search parameters with space: "
+	}});
+   
+} );
+
+
+/*
+$(document).ready(function() {
+    $('#nhlTable').on('mouseover', 'td', function() {
+    	alert('in');
+    }).on('mouseout', 'td', function() {
+        // hide popup for cell
+        alert('out')
+    });
+});*/
+</script>
+{% endblock %}

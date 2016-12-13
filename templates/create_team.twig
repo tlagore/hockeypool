@@ -2,7 +2,11 @@
 
 {% block primary_content %}
 
-
+<div class="bs-component">
+	<h1>
+        Create your team
+    </h1>
+</div>
 <form class="form-horizontal" action="create_team.php" method="post" id="createTeamForm">
 	<div class="row">
 		<div class="col-lg-3">
@@ -41,7 +45,7 @@
 				</thead>
 				<tbody>
 					{% for player in nhl_players %}
-					<tr class="clickableRow" id="{{ player.name }}{{ player.team }}">
+					<tr style="cursor:pointer;" data-container="body" data-toggle="tooltip" data-placement="left" class="clickableRow" id="{{ player.name }}{{ player.team }}">
 						<td align="center">{{ player.name }}</td>
 						<td align="center">{{ player.team }}</td>
 						<td align="center">{{ player.position }}</td>
@@ -53,9 +57,8 @@
 						<td align="center">{{ player.shots_on_goal }}</td>
 						<td align="center">{{ player.pp_goals }}</td>
 						<td align="center">{{ player.gw_goals }}</td>
-						<td><a href="#"><span
-								id="{{ player.name }}{{ player.team }}span"
-								style="color: #5cb85c;" class="glyphicon glyphicon-plus"></span></a>
+						<td><span id="{{ player.name }}{{ player.team }}span"
+								style="color: #5cb85c;" class="glyphicon glyphicon-plus"></span></td>
 					</tr>
 					{% endfor %}
 				</tbody>
@@ -95,6 +98,26 @@
 
 {% block extra_scripts %}
 <script type="text/javascript">
+
+function titleSetter(){
+	var array = ['img/Graph1.png','img/Graph2.png', 
+			'img/Graph3.png', 'img/Graph4.png', 
+			'img/Graph5.png', 'img/Graph6.png', 
+			'img/Graph7.png', 'img/Graph8.png', 
+			'img/Graph9.png', 'img/Graph10.png'];
+	var index = Math.round(Math.random() * 100 % 3);	
+
+	return '<img src="' + array[index] + '"></img>';
+}
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({
+    		animated: 'fade',
+    		title: titleSetter,
+    		html: true
+		}); 
+});
+
 	$('#createTeamForm').submit(function(){
 			var numPlayers = parseInt(document.getElementById('numRemaining').innerHTML);
 			if(numPlayers != 0)
@@ -143,12 +166,14 @@
 			if(numPlayers > 0){
     			var $row = $(this);
 
+    			//hide tooltip, otherwise changed row might leave an open tooltip
+				$row.tooltip("hide");				
+				
     			var addRow = rosterTable.row(this);
     			teamTable.row.add(addRow.data()).draw();
     			addRow.remove().draw();
     			numPlayers--;
     			document.getElementById('numRemaining').innerHTML = numPlayers;
-    			alert(row.id);
 			}else{
 				alert('You have used all your allowable players! Remove players to add more.');
 			}
@@ -161,7 +186,7 @@
 			var addRow = teamTable.row(this);
 			rosterTable.row.add(addRow.data()).draw();
 			addRow.remove().draw();
-			//alert(numPlayers);
+
 			document.getElementById('numRemaining').innerHTML = numPlayers;
 			});
 	});
